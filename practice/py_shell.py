@@ -13,7 +13,10 @@ class Simple_shell(cmd.Cmd):
         print('default(%s)' % line)
         return cmd.Cmd.default(self, line)
     def preloop(self):
-        print("This is before the command line")
+        if not sys.stdin.isatty():
+            line = sys.stdin.readline()
+            self.cmdqueue.append(line)
+#            sys.exit()
     def postloop(self):
         print()
     def do_greet(self, line):
