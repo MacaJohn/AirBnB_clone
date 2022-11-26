@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """ This module contains the BaseModel class"""
-import datetime
-import uuid
+from datetime import datetime
+from uuid import uuid4
 
 class BaseModel:
     """
@@ -13,11 +13,19 @@ class BaseModel:
             to_dict: returns the dictionary representation of the string
     """
 
-    def __init__(self):
+    def __init__(self, *args, **kwargs):
         """ The constructor method of the BaseModel class """
-        self.id = str(uuid.uuid4())
-        self.created_at = datetime.datetime.now()
-        self.updated_at = self.created_at
+        if not kwargs:
+            self.id = str(uuid4())
+            self.created_at = datetime.now()
+            self.updated_at = self.created_at
+        else:
+            for key, value in kwargs.items():
+                if key != '__class__':
+                    if key in ('created_at', 'updated_at'):
+                        setattr(self, key, datetime.fromisoformat(value))
+                    else:
+                        setattr(self, key, value)
 
     def __str__(self):
         """Returns the informal string representation of this class """
@@ -26,7 +34,7 @@ class BaseModel:
 
     def save(self):
         """ edits the updated_at attribute of the BaseModel class"""
-        self.updated_at = datetime.datetime.now()
+        self.updated_at = datetime.now()
 
     def to_dict(self):
         """Returns the dictionary representation of this class"""
@@ -36,4 +44,3 @@ class BaseModel:
         my_dict["updated_at"] = self.updated_at.isoformat()
 
         return my_dict
-
