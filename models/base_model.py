@@ -15,10 +15,14 @@ class BaseModel:
 
     def __init__(self, *args, **kwargs):
         """ The constructor method of the BaseModel class """
+        
+        from models import storage
+
         if not kwargs:
             self.id = str(uuid4())
             self.created_at = datetime.now()
             self.updated_at = self.created_at
+            storage.new(self)
         else:
             for key, value in kwargs.items():
                 if key != '__class__':
@@ -34,7 +38,11 @@ class BaseModel:
 
     def save(self):
         """ edits the updated_at attribute of the BaseModel class"""
+        
+        from models import storage
+
         self.updated_at = datetime.now()
+        storage.save()
 
     def to_dict(self):
         """Returns the dictionary representation of this class"""

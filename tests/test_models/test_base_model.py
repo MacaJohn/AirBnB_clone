@@ -149,6 +149,43 @@ class TestBaseModel(unittest.TestCase):
                     Raises an AttributeError if basemodel_3.my_number is called
                 """
                 raise AttributeError
+        def test_kwargs_is_empty(self):
+            """
+                checks that id, created_at and updated_at are generated even
+                when kwargs is empty
+            """
+            my_dict = {}
+            b = BaseModel(**my_dict)
+            self.assertTrue(type(b.id) is str)
+            self.assertTrue(type(b.created_at) is datetime)
+            self.assertTrue(type(b.updated_at) is datetime)
+
+        def test_kwargs_not_empty(self):
+            """
+                checks that id, created_at and updated_at are created
+                from kwargs
+            """
+            my_dict = {"id": uuid4(), "created_at": datetime.utcnow().isoformat(),
+                        "updated_at": datetime.now().isoformat()}
+            b = BaseModel(**my_dict)
+            self.assertEqual(b.id, my_dict["id"])
+            self.assertEqual(b.created_at,
+                             datetime.strptime(my_dict["created_at"],
+                                               "%Y-%m-%dT%H:%M:%S.%f"))
+            self.assertEqual(b.updated_at,
+                             datetime.strptime(my_dict["updated_at"],
+                                               "%Y-%m-%dT%H:%M:%S.%f"))
+
+        def test_save_method_update_file(self):
+            """
+                Tests that save method updates file
+            """
+            b = BaseModel()
+            b.save()
+            bid = "BaseModel.{}".format(b.id)
+            with open("file.json", encoding="utf-8") as f:
+                self.assertIn(bid, f.read())
+
 
 
 if __name__ == '__main__':
