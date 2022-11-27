@@ -10,6 +10,6 @@ The console application is a command interpreter that will allow the software en
 
 The main aim is to manipulate a powerful storage system. The storage system will give a abstraction between "My objects" and "How they are stored and persisted". This means, there will be no need to pay attention to how objects are stored when the frontend and RestAPI are built later.
 
-The abstraction will alos allow changing the type of storage easily without updating all of the codebase.
+The abstraction will also allow changing the type of storage easily without updating all of the codebase.
 
 The console will also help in validating the data models implemented with file storage so that it can be finalized with a SQL database.
