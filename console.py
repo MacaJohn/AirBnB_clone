@@ -97,7 +97,7 @@ class HBNBCommand(Cmd):
         if len(tokens) == 0:
             print("** class name missing **")
             return
-        elif tokens[0] not in HBNBCommand.my_dict.keys():
+        if tokens[0] not in HBNBCommand.my_dict.keys():
             print("** class doesn't exist **")
             return
         if len(tokens) <= 1:
@@ -107,8 +107,8 @@ class HBNBCommand(Cmd):
         objs_dict = storage.all()
         key = tokens[0] + "." + tokens[1]
         if key in objs_dict:
-            obj_instance = str(objs_dict[key])
-            print(obj_instance)
+            del objs_dict[key]
+            storage.save()
         else:
             print("** no instance found **")
 
