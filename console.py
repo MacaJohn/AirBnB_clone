@@ -181,7 +181,7 @@ class HBNBCommand(Cmd):
             print("** class name existing **")
             return
         my_dictionary = "{" + arg.split("{")[1]
-        my_data = shlex.split(arg)
+        cmd_tokens = shlex.split(arg)
         storage.reload()
         objs_dict = storage.all()
         if cmd_tokens[0] not in HBNBCommand.my_dict.keys():
