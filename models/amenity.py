@@ -1,12 +1,11 @@
 #!/usr/bin/env python3
-""" The module of the state class """
+""" The module of amenity class """
 from models.base_model import BaseModel
 
-
-class State(BaseModel):
-    """Representation of state """
+class Amenity(BaseModel):
+    """Representation of Amenity """
     name = ""
 
     def __init__(self, *args, **kwargs):
-        """constructor of the state class"""
+        """ The constructor of the Amenity class """
         super().__init__(*args, **kwargs)

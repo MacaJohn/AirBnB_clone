@@ -47,7 +47,7 @@ class HBNBCommand(Cmd):
         """ Does nothing """
         pass
 
-    def do_create(self, args):
+    def do_create(self, arg):
         """Create an instance of Model given its name eg.
         $ create ModelName
         Throws an Error if ModelName is missing or doesnt exist"""
@@ -72,7 +72,7 @@ class HBNBCommand(Cmd):
         if len(tokens) == 0:
             print("** class name missing **")
             return
-        if token[0] not in HBNBCommand.my_dict.keys():
+        if tokens[0] not in HBNBCommand.my_dict.keys():
             print("** class doesn't exist **")
             return
         if len(tokens) <= 1:
@@ -112,7 +112,7 @@ class HBNBCommand(Cmd):
         else:
             print("** no instance found **")
 
-    def do_all(self, args):
+    def do_all(self, arg):
         """Retrieve all instances: eg.
         $ all
         $ all MyModel
@@ -130,7 +130,7 @@ class HBNBCommand(Cmd):
             for key in objects_dict:
                 if token[0] in key:
                     my_json.append(str(objects_dict[key]))
-            print(json.dump(my_json))
+            print(json.dumps(my_json))
         else:
             print("** class doesn't exit **")
 
@@ -238,7 +238,7 @@ class HBNBCommand(Cmd):
         arg = arg.strip()
         values = arg.split(".")
         if len(values) != 2:
-            cmd.Cmd.default(self, arg)
+            Cmd.default(self, arg)
             return
         class_name = values[0]
         command = values[1].split("(")[0]
