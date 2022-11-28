@@ -3,6 +3,7 @@
 from datetime import datetime
 from uuid import uuid4
 
+
 class BaseModel:
     """
         The Base model class
@@ -15,7 +16,7 @@ class BaseModel:
 
     def __init__(self, *args, **kwargs):
         """ The constructor method of the BaseModel class """
-        
+
         from models import storage
 
         if not kwargs:
@@ -38,7 +39,7 @@ class BaseModel:
 
     def save(self):
         """ edits the updated_at attribute of the BaseModel class"""
-        
+
         from models import storage
 
         self.updated_at = datetime.now()

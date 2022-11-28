@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-""" 
+"""
     module to create a generic storage object
 """
 
