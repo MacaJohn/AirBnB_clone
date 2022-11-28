@@ -28,7 +28,7 @@ class TestBaseModel(unittest.TestCase):
         self.assertEqual(len(self.basemodel_1.id), 36)
 
     def test_basemodel_created_at_and_updated_at(self):
-        """ 
+        """
             tests the attributes
             basemodel.created_at
             basemodel.updated_at
@@ -149,6 +149,7 @@ class TestBaseModel(unittest.TestCase):
                     Raises an AttributeError if basemodel_3.my_number is called
                 """
                 raise AttributeError
+
         def test_kwargs_is_empty(self):
             """
                 checks that id, created_at and updated_at are generated even
@@ -165,8 +166,11 @@ class TestBaseModel(unittest.TestCase):
                 checks that id, created_at and updated_at are created
                 from kwargs
             """
-            my_dict = {"id": uuid4(), "created_at": datetime.utcnow().isoformat(),
-                        "updated_at": datetime.now().isoformat()}
+            my_dict = {
+                        "id": uuid4(),
+                        "created_at": datetime.utcnow().isoformat(),
+                        "updated_at": datetime.now().isoformat()
+                        }
             b = BaseModel(**my_dict)
             self.assertEqual(b.id, my_dict["id"])
             self.assertEqual(b.created_at,
@@ -185,7 +189,6 @@ class TestBaseModel(unittest.TestCase):
             bid = "BaseModel.{}".format(b.id)
             with open("file.json", encoding="utf-8") as f:
                 self.assertIn(bid, f.read())
-
 
 
 if __name__ == '__main__':
