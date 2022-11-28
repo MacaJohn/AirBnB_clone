@@ -48,18 +48,18 @@ class HBNBCommand(Cmd):
         pass
 
     def do_create(self, arg):
-        """Create an instance of Model given its name eg.
-        $ create ModelName
-        Throws an Error if ModelName is missing or doesnt exist"""
+        """
+            Create an instance of Model given its name eg.
+        """
 
         if not arg:
             print("** class name missing **")
             return
-        my_data = shlex.split(arg)
-        if my_data[0] not in HBNBCommand.my_dict.keys():
+        cmd_tokens = shlex.split(arg)
+        if cmd_tokens[0] not in HBNBCommand.my_dict.keys():
             print("** class doesn't exist **")
             return
-        new_instance = HBNBCommand.my_dict[my_data[0]]()
+        new_instance = HBNBCommand.my_dict[cmd_tokens[0]]()
         new_instance.save()
         print(new_instance.id)
 
@@ -68,19 +68,19 @@ class HBNBCommand(Cmd):
         $ show MyModel instance_id
         Print error message if either MyModel or instance_id is missing
         Print an Error message for wrong MyModel or instance_id"""
-        tokens = shlex.split(arg)
-        if len(tokens) == 0:
+        cmd_tokens = shlex.split(arg)
+        if len(cmd_tokens) == 0:
             print("** class name missing **")
             return
-        if tokens[0] not in HBNBCommand.my_dict.keys():
+        if cmd_tokens[0] not in HBNBCommand.my_dict.keys():
             print("** class doesn't exist **")
             return
-        if len(tokens) <= 1:
+        if len(cmd_tokens) <= 1:
             print("** instance id missing **")
             return
         storage.reload()
         objs_dict = storage.all()
-        key = tokens[0] + "." + tokens[1]
+        key = cmd_tokens[0] + "." + cmd_tokens[1]
         if key in objs_dict:
             obj_instance = str(objs_dict[key])
             print(obj_instance)
@@ -92,20 +92,20 @@ class HBNBCommand(Cmd):
         $ destroy MyModel instance_id
         Print error message if either MyModel or instance_id is missing
         Print an Error message for wrong MyModel or instance_id"""
-        tokens = shlex.split(arg)
+        cmd_tokens = shlex.split(arg)
 
-        if len(tokens) == 0:
+        if len(cmd_tokens) == 0:
             print("** class name missing **")
             return
-        if tokens[0] not in HBNBCommand.my_dict.keys():
+        if cmd_tokens[0] not in HBNBCommand.my_dict.keys():
             print("** class doesn't exist **")
             return
-        if len(tokens) <= 1:
+        if len(cmd_tokens) <= 1:
             print("** instance id missing **")
             return
         storage.reload()
         objs_dict = storage.all()
-        key = tokens[0] + "." + tokens[1]
+        key = cmd_tokens[0] + "." + cmd_tokens[1]
         if key in objs_dict:
             del objs_dict[key]
             storage.save()
@@ -141,36 +141,36 @@ class HBNBCommand(Cmd):
         if not arg:
             print("** class name missing **")
             return
-        my_data = shlex.split(arg)
+        cmd_tokens = shlex.split(arg)
         storage.reload()
         objs_dict = storage.all()
-        if my_data[0] not in HBNBCommand.my_dict.keys():
+        if cmd_tokens[0] not in HBNBCommand.my_dict.keys():
             print("** class doesn't exist **")
             return
-        if (len(my_data) == 1):
+        if (len(cmd_tokens) == 1):
             print("** instance id missing **")
             return
         try:
-            key = my_data[0] + "." + my_data[1]
+            key = cmd_tokens[0] + "." + cmd_tokens[1]
             objs_dict[key]
         except KeyError:
             print("** no instance found **")
             return
-        if (len(my_data) == 2):
+        if (len(cmd_tokens) == 2):
             print("** attribute name missing **")
             return
-        if (len(my_data) == 2):
+        if (len(cmd_tokens) == 2):
             print("** attribute name missing **")
             return
-        if (len(my_data) == 3):
+        if (len(cmd_tokens) == 3):
             print("** value missing **")
             return
         my_instance = objs_dict[key]
-        if hasattr(my_instance, my_data[2]):
-            data_type = type(getattr(my_instance, my_data[2]))
-            setattr(my_instance, my_data[2], data_type(my_data[3]))
+        if hasattr(my_instance, cmd_tokens[2]):
+            data_type = type(getattr(my_instance, cmd_tokens[2]))
+            setattr(my_instance, cmd_tokens[2], data_type(cmd_tokens[3]))
         else:
-            setattr(my_instance, my_data[2], my_data[3])
+            setattr(my_instance, cmd_tokens[2], cmd_tokens[3])
         storage.save()
 
     def do_update2(self, arg):
@@ -184,14 +184,14 @@ class HBNBCommand(Cmd):
         my_data = shlex.split(arg)
         storage.reload()
         objs_dict = storage.all()
-        if my_data[0] not in HBNBCommand.my_dict.keys():
+        if cmd_tokens[0] not in HBNBCommand.my_dict.keys():
             print("** class doesn't exist **")
             return
-        if (len(my_data) == 1):
+        if (len(cmd_tokens) == 1):
             print("** instance id missing **")
             return
         try:
-            key = my_data[0] + "." + my_data[1]
+            key = cmd_tokens[0] + "." + cmd_tokens[1]
             objs_dict[key]
         except KeyError:
             print("** no instance found **")
