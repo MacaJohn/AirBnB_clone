@@ -4,8 +4,8 @@ div.container section.filters {
     width: 100%;
     border: 1px solid #DDDDDD;
     border-radius: 4px;
-    display: flex;
-    justify-content: flex-end; /* Not too sure though*/
+/*    display: flex;
+    justify-content: center;  Not too sure though*/
 }
 
 section.filters button{
@@ -17,8 +17,9 @@ section.filters button{
     border: none;
     border-radius: 4px;
     margin: 11px 30px;
+    float: right;
 }
 
-section.filter button:hover {
+section.filters button:hover {
     opacity: 90%;
 }
