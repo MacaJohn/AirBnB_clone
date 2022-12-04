@@ -48,3 +48,32 @@ div.locations h4, div.amenities h4 {
     margin: 0px;
     padding: 0px;
 }
+
+div.locations ul.popover, div.amenities ul.popover {
+    position: absolute;
+    top: 56px;
+    left: 0px;
+    width: 90%;         /* Take note that the width works with the 5% padding*/
+    background-color: #FAFAFA;
+    border: 1px solid #DDDDDD;
+    border-radius: 4px;
+    list-style-type: none;
+    padding: 15px 5%; /* see width note: 5% + 5% + 90% = 100%*/
+    display: none;
+}
+
+div.locations:hover ul.popover, div.amenities:hover ul.popover {
+    display: block;
+}
+
+div.locations ul>li, div.amenities ul>li {
+    list-style-type: none;
+}
+
+ul.popover h2{
+    font-size: 16px;
+}
+
+div.amenities ul.popover {
+    line-height: 2em;
+}
