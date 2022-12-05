@@ -82,3 +82,56 @@ article div.user {
 article div.description {
     line-height: 1.5em;
 }
+
+article div.amenities {
+    margin-top: 40px;
+}
+
+article div.amenities h2 {
+    text-align: left;
+    font-size: 16px;
+    border-bottom: 1px solid #DDDDDD;
+}
+
+article div.amenities ul {
+    margin: 0px;
+    padding: 0px;
+}
+
+article div.amenities ul li {
+    list-style: none;
+    background-repeat: no-repeat;
+    padding-left: 25px;
+    margin: 3.5px 0px;
+}
+
+article div.amenities ul li.pet {
+    background-image: url(../images/pets_icon.png);
+}
+
+article div.amenities ul li.tv {
+    background-image: url(../images/tv_icon.png);
+}
+
+article div.amenities ul li.wifi {
+    background-image: url(../images/wifi_icon.png);
+}
+
+article div.reviews {
+    margin-top: 40px;
+}
+
+article div.reviews h2{
+    text-align: left;
+    font-size: 16px;
+    border-bottom: 1px solid #DDDDDD;
+}
+
+article div.reviews ul {
+    padding: 0px;
+    margin: 0px;
+}
+
+article div.reviews ul li {
+    list-style: none;
+}
