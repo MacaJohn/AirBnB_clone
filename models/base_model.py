@@ -3,10 +3,30 @@
 from uuid import uuid4
 from datetime import datetime
 
+<<<<<<< HEAD
+=======
+
+class BaseModel:
+    """
+        The Base model class
+        Methods:
+            __init__ - the constructor method
+            __str__ - the informal representation of the class
+            save: function updates the updated_at attribute
+            to_dict: returns the dictionary representation of the string
+    """
+>>>>>>> f3205f486e56f35831bb666b1beee4a86f9b2fcb
 
 class BaseModel:
     """A class that defines all common attributes/methods for other classes"""
     def __init__(self, *args, **kwargs):
+<<<<<<< HEAD
+=======
+        """ The constructor method of the BaseModel class """
+
+        from models import storage
+
+>>>>>>> f3205f486e56f35831bb666b1beee4a86f9b2fcb
         if not kwargs:
             from models import storage
             self.id = str(uuid4())
@@ -30,7 +50,12 @@ class BaseModel:
             type(self).__name__, self.id, self.__dict__)
 
     def save(self):
+<<<<<<< HEAD
         """Updates 'self.updated_at' with the current datetime"""
+=======
+        """ edits the updated_at attribute of the BaseModel class"""
+
+>>>>>>> f3205f486e56f35831bb666b1beee4a86f9b2fcb
         from models import storage
         self.updated_at = datetime.now()
         storage.save()

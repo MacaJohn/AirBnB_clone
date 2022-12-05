@@ -3,11 +3,16 @@
     This module contains test suites,
     cases and models for the base_model class
 """
-
 import unittest
 import uuid
 from datetime import datetime
 from models.base_model import BaseModel
+from models.place import  Place
+from models.amenity import Amenity
+from models.state import State
+from models.city import City
+from models.user import User
+from models.review import Review
 
 
 class TestBaseModel(unittest.TestCase):
@@ -28,7 +33,7 @@ class TestBaseModel(unittest.TestCase):
         self.assertEqual(len(self.basemodel_1.id), 36)
 
     def test_basemodel_created_at_and_updated_at(self):
-        """ 
+        """
             tests the attributes
             basemodel.created_at
             basemodel.updated_at
@@ -109,83 +114,86 @@ class TestBaseModel(unittest.TestCase):
         self.assertIs(type(bm_dict['id']), str)
         self.assertEqual(bm_dict['id'], self.basemodel.id)
 
-        def test_init_with_kwarg_variable(self):
-            """ tests the BaseModel __init__(**kwargs) """
-            basemodel = BaseModel()
-            basemodel.name = 'My second Model'
-            basemodel.my_number = 91
-            bm_dict = basemodel.to_dict()
+    def test_init_with_kwarg_variable(self):
+        """ tests the BaseModel __init__(**kwargs) """
+        basemodel = BaseModel()
+        basemodel.name = 'My second Model'
+        basemodel.my_number = 91
+        bm_dict = basemodel.to_dict()
 
-            basemodel_1 = BaseModel(**bm_dict)
-            bm_dict_1 = basemodel_1.to_dict()
+        basemodel_1 = BaseModel(**bm_dict)
+        bm_dict_1 = basemodel_1.to_dict()
 
-            empty_dict = {}
-            rand_dict_1 = {
-                            id: str(uuid.uuid4()),
-                            __class__: 'BaseModel',
-                            name: 'second to the last',
-                            my_number: 92,
-                            created_at: datetime.isoformat(datetime.now())
-            }
-            rand_tuple_1 = ()
+        empty_dict = {}
+        rand_dict_1 = {
+                        id: str(uuid.uuid4()),
+                        __class__: 'BaseModel',
+                        name: 'second to the last',
+                        my_number: 92,
+                        created_at: datetime.isoformat(datetime.now())
+        }
+        rand_tuple_1 = ()
 
-            basemodel_2 = BaseModel(**rand_dict_1)
-            bm_dict_2 = basemodel_2.to_dict()
+        basemodel_2 = BaseModel(**rand_dict_1)
+        bm_dict_2 = basemodel_2.to_dict()
 
-            self.assertEqual(bm_dict, bm_dict_1)
-            self.assertIsNot(bm_dict, bm_dict_1)
-            self.assertNotEqual(basemodel, basemodel_1)
-            self.assertIsNot(basemodel, basemodel_1)
-            self.assertEqual(rand_dict_1, bm_dict_2)
-            self.assertIsNot(rand_dict_1, bm_dict_2)
+        self.assertEqual(bm_dict, bm_dict_1)
+        self.assertIsNot(bm_dict, bm_dict_1)
+        self.assertNotEqual(basemodel, basemodel_1)
+        self.assertIsNot(basemodel, basemodel_1)
+        self.assertEqual(rand_dict_1, bm_dict_2)
+        self.assertIsNot(rand_dict_1, bm_dict_2)
 
-            basemodel_3 = BaseModel(**empty_dict)
-            with self.assertRaises(AttributeError, basemodel_3.name):
-                """Raises an AttributeError if basemodel_3.name is called """
-                raise AttributeError
+        basemodel_3 = BaseModel(**empty_dict)
+        with self.assertRaises(AttributeError, basemodel_3.name):
+            """Raises an AttributeError if basemodel_3.name is called """
+            raise AttributeError
 
-            with self.assertRaises(AttributeError, basemodel_3.my_number):
-                """
-                    Raises an AttributeError if basemodel_3.my_number is called
-                """
-                raise AttributeError
-        def test_kwargs_is_empty(self):
+        with self.assertRaises(AttributeError, basemodel_3.my_number):
             """
-                checks that id, created_at and updated_at are generated even
-                when kwargs is empty
+                Raises an AttributeError if basemodel_3.my_number is called
             """
-            my_dict = {}
-            b = BaseModel(**my_dict)
-            self.assertTrue(type(b.id) is str)
-            self.assertTrue(type(b.created_at) is datetime)
-            self.assertTrue(type(b.updated_at) is datetime)
+            raise AttributeError
 
-        def test_kwargs_not_empty(self):
-            """
-                checks that id, created_at and updated_at are created
-                from kwargs
-            """
-            my_dict = {"id": uuid4(), "created_at": datetime.utcnow().isoformat(),
-                        "updated_at": datetime.now().isoformat()}
-            b = BaseModel(**my_dict)
-            self.assertEqual(b.id, my_dict["id"])
-            self.assertEqual(b.created_at,
-                             datetime.strptime(my_dict["created_at"],
-                                               "%Y-%m-%dT%H:%M:%S.%f"))
-            self.assertEqual(b.updated_at,
-                             datetime.strptime(my_dict["updated_at"],
-                                               "%Y-%m-%dT%H:%M:%S.%f"))
+    def test_kwargs_is_empty(self):
+        """
+            checks that id, created_at and updated_at are generated even
+            when kwargs is empty
+        """
+        my_dict = {}
+        b = BaseModel(**my_dict)
+        self.assertTrue(type(b.id) is str)
+        self.assertTrue(type(b.created_at) is datetime)
+        self.assertTrue(type(b.updated_at) is datetime)
 
-        def test_save_method_update_file(self):
-            """
-                Tests that save method updates file
-            """
-            b = BaseModel()
-            b.save()
-            bid = "BaseModel.{}".format(b.id)
-            with open("file.json", encoding="utf-8") as f:
-                self.assertIn(bid, f.read())
+    def test_kwargs_not_empty(self):
+        """
+            checks that id, created_at and updated_at are created
+            from kwargs
+        """
+        my_dict = {
+                    "id": uuid4(),
+                    "created_at": datetime.utcnow().isoformat(),
+                    "updated_at": datetime.now().isoformat()
+                    }
+        b = BaseModel(**my_dict)
+        self.assertEqual(b.id, my_dict["id"])
+        self.assertEqual(b.created_at,
+                         datetime.strptime(my_dict["created_at"],
+                                            "%Y-%m-%dT%H:%M:%S.%f"))
+        self.assertEqual(b.updated_at,
+                         datetime.strptime(my_dict["updated_at"],
+                                            "%Y-%m-%dT%H:%M:%S.%f"))
 
+    def test_save_method_update_file(self):
+        """
+            Tests that save method updates file
+        """
+        b = BaseModel()
+        b.save()
+        bid = "BaseModel.{}".format(b.id)
+        with open("file.json", encoding="utf-8") as f:
+            self.assertIn(bid, f.read())
 
 
 if __name__ == '__main__':
